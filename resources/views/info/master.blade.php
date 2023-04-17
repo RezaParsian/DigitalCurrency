@@ -1,13 +1,5 @@
 @extends('master.index')
 
-@php
-    $controller=new \App\Http\Controllers\CrawlController();
-
-    $coinInfo=$controller->coinInfo(\Illuminate\Support\Facades\Route::current()->parameter('id'))->data;
-    $fiats=$controller->fiats()->data;
-    $tabs=$controller->tab(\Illuminate\Support\Facades\Route::current()->parameter('symbol'));
-@endphp
-
 @section('content')
     <div id="tabs" class="flex gap-2 mt-4 w-full overflow-scroll px-3 pb-3">
         @foreach($tabs as $tab)
@@ -25,7 +17,7 @@
             <div class="border-b-2 pb-3">
                 <div class="flex mb-2" dir="ltr">
                     <img src="https://cdn.arzdigital.com/uploads/assets/coins/icons/{{$symbol}}.png" width="42px" alt="{{$symbol}}"/>
-                    <h1 class="my-auto text-2xl font-bold">
+                    <h1>
                         {{ucfirst($symbol)}} ({{$coinInfo->symbol}})
                     </h1>
                 </div>
@@ -43,9 +35,12 @@
 
             <div class="grid grid-cols-8 my-8 border-b-2 pb-6">
                 <div @class([
-        'rounded-full',
+                    'rounded-full',
                     'border',
-                    'max-w-[4rem]', 'max-h-[4rem]', 'inline-flex', 'col-span-2',
+                    'max-w-[4rem]',
+                    'max-h-[4rem]',
+                    'inline-flex',
+                    'col-span-2',
                     "bg-green-500"=>$coinInfo->d1>=0,
                     "bg-rose-500"=>$coinInfo->d1<0
                 ])>
@@ -57,7 +52,7 @@
                 </div>
 
                 <div class="col-span-6">
-                    <h1 class="my-auto text-2xl font-bold">
+                    <h1>
                         ${{number_format($coinInfo->price)}}
                     </h1>
 

@@ -68,5 +68,9 @@ tbody{
 }
 
 tr{
-    @apply even:bg-gray-100
+    @apply even:bg-gray-100;
+}
+
+h1{
+    @apply my-auto text-2xl font-bold;
 }

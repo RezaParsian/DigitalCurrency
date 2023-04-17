@@ -7,6 +7,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View as ViewAlias;
 use phpQuery;
 use Rp76\Guzzle\Client;
 use WebSocket\Client as websocket;
@@ -15,6 +17,17 @@ require(public_path() . '/../vendor/george-zakharov/php-query/phpQuery/phpQuery.
 
 class CrawlController extends Controller
 {
+    public function __construct()
+    {
+        $coinInfo = $this->coinInfo(Route::current()->parameter('id'))->data;
+        $fiats = $this->fiats()->data;
+        $tabs = $this->tab(Route::current()->parameter('symbol'));
+
+        ViewAlias::share('coinInfo', $coinInfo);
+        ViewAlias::share('fiats', $fiats);
+        ViewAlias::share('tabs', $tabs);
+    }
+
     /**
      * @param string $url
      * @param null $ttl
@@ -90,9 +103,8 @@ class CrawlController extends Controller
             $title = pq($row)->find('th')->text();
             $value = pq($row)->find('td')->text();
 
-            if (str_contains($value, "\n")) {
+            if (str_contains($title, "\n"))
                 continue;
-            }
 
             $pageDetails[] = [
                 'title' => trim($title),
@@ -100,7 +112,9 @@ class CrawlController extends Controller
             ];
         }
 
-        return view('info.overview', compact('pageDetails', 'id', 'symbol'));
+        $detail = pq('.arz-coin-details__explanation-text')->text();
+
+        return view('info.overview', compact('pageDetails', 'id', 'symbol', 'detail'));
     }
 
     public function orderBook(string $id, string $symbol): array
