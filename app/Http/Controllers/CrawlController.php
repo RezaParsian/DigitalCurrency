@@ -216,7 +216,12 @@ class CrawlController extends Controller
         return view('info.chain', compact('details', 'charts', 'id', 'symbol'));
     }
 
-    public function wallet(string $id, string $symbol): array
+    /**
+     * @param string $id
+     * @param string $symbol
+     * @return Application|Factory|View
+     */
+    public function wallet(string $id, string $symbol)
     {
         $source = $this->crawl("https://arzdigital.com/coins/$symbol/wallet/");
 
@@ -243,7 +248,7 @@ class CrawlController extends Controller
             ];
         }
 
-        return $wallets;
+        return view('info.wallet', compact('wallets', 'id', 'symbol'));
     }
 
     /**
