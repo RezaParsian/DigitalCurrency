@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: Vazir;
+    src: url('/public/fonts/Vazir-Regular.ttf');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: rYekan;
+    src: url("/public/fonts/yeknBakh/Yekan Bakh FaNum 04 Regular.woff") format('woff');
+    src: url("/public/fonts/yeknBakh/Yekan Bakh FaNum 04 Regular.eot");
+    src: url("/public/fonts/yeknBakh/Yekan Bakh FaNum 04 Regular.ttf") format('truetype');
+}
+
+body {
+    margin: 0;
+    font-family: 'Vazir', sans-serif!important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f0f0f0;
+}
+
+*{
+    font-family: 'Vazir', sans-serif!important;
+
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.isNumber, .number{
+    font-family: 'rYekan', serif !important;
+    font-weight: 600;
+}
+
+select{
+    @apply bg-gray-50 w-1/2 mx-auto border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+}
+
+input{
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+}
+
+button{
+    @apply flex flex-col cursor-pointer items-center justify-center w-9 h-9 shadow-[0_4px_10px_rgba(0,0,0,0.03)] text-sm font-normal transition-colors rounded-lg
+}
+
+table{
+    @apply min-w-full divide-y divide-gray-200 table-auto my-5;
+}
+
+th{
+    @apply px-6 py-3 bg-gray-50 text-xs text-right font-medium text-gray-500 uppercase tracking-wider;
+}
+
+td{
+    @apply px-6 py-4 whitespace-nowrap;
+}
+
+tbody{
+    @apply bg-white divide-y divide-gray-200;
+}
+
+tr{
+    @apply even:bg-gray-100
+}
