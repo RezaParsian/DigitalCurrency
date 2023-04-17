@@ -275,7 +275,7 @@ class CrawlController extends Controller
         return view('info.miningCalculator', compact('coin', 'id', 'symbol', 'devices'));
     }
 
-    public function miners(string $id, string $symbol): array
+    public function miners(string $id, string $symbol)
     {
         $source = $this->crawl("https://arzdigital.com/coins/$symbol/miners/");
 
@@ -296,7 +296,7 @@ class CrawlController extends Controller
                 }, $items);
             })->elements;
 
-            $rows[] = [
+            $rows[] = (object)[
                 'device' => $pqRow->find('.device')->text(),
                 'company' => $pqRow->find('.company')->text(),
                 'price' => $pqRow->find('.price9')->text(),
@@ -307,7 +307,6 @@ class CrawlController extends Controller
             ];
         }
 
-
-        return $rows;
+        return view('info.miners', compact('rows', 'id', 'symbol'));
     }
 }
