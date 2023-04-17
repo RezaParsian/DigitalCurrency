@@ -8,7 +8,7 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-<div class="container mx-auto" id="app">
+<div class="container mx-auto p-2 md:p-0" id="app">
     @yield('content')
 </div>
 @vite('resources/js/app.js')

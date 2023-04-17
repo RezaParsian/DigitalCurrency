@@ -1,7 +1,7 @@
 @extends('info.master')
 
 @section('body')
-    <div class="grid grid-cols-4">
+    <div class="grid grid-cols-1 md:grid-cols-4">
         <div class="col-span-3">
             <h1 class="mb-4">
                 درباره {{$coinInfo->faname}}

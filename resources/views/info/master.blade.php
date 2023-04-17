@@ -10,8 +10,8 @@
         @endforeach
     </div>
 
-    <div class="grid grid-cols-4">
-        <area-chart :id="{{$id}}" class="col-span-3"></area-chart>
+    <div class="grid grid-cols-1 md:grid-cols-4">
+        <area-chart :id="{{$id}}" class="col-span-3 order-2 md:order-1"></area-chart>
 
         <div class="p-2 grid-rows-5 my-auto">
             <div class="border-b-2 pb-3">

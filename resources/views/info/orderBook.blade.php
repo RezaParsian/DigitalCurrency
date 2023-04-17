@@ -80,7 +80,7 @@
 @endphp
 
 @section('body')
-    <div class="grid grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div class="col-span-2">
             <depth-chart :asks='@json($tempBuy1)'
                          :bids='@json($tempSell1)'>
