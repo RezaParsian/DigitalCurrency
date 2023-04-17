@@ -142,6 +142,12 @@ class CrawlController extends Controller
         return view('info.orderBook', compact('deep', 'symbol', 'id'));
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param string $id
+     * @param string $symbol
+     * @return Application|Factory|View
+     */
     public function historicalData(\Illuminate\Http\Request $request, string $id, string $symbol)
     {
         $source = $this->crawl("https://arzdigital.com/coins/$symbol/historical-data/page-" . $request->input('page', 1) . "/");
@@ -176,7 +182,12 @@ class CrawlController extends Controller
         return view('info.historicalData', compact('paginator','id','symbol'));
     }
 
-    public function chain(string $id, string $symbol): array
+    /**
+     * @param string $id
+     * @param string $symbol
+     * @return Application|Factory|View
+     */
+    public function chain(string $id, string $symbol)
     {
         $source = $this->crawl("https://arzdigital.com/coins/$symbol/chain/");
         $details = [];
@@ -202,10 +213,7 @@ class CrawlController extends Controller
             ];
         });
 
-        return [
-            "details" => $details,
-            "charts" => $charts,
-        ];
+        return view('info.chain', compact('details', 'charts', 'id', 'symbol'));
     }
 
     public function wallet(string $id, string $symbol): array
