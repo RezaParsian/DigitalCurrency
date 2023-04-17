@@ -117,9 +117,14 @@ class CrawlController extends Controller
         return view('info.overview', compact('pageDetails', 'id', 'symbol', 'detail'));
     }
 
-    public function orderBook(string $id, string $symbol): array
+    /**
+     * @param string $id
+     * @param string $symbol
+     * @return Application|Factory|View
+     */
+    public function orderBook(string $id, string $symbol)
     {
-        $source = $this->crawl("https://arzdigital.com/coins/$symbol/order-book/");
+        $source = $this->crawl("https://arzdigital.com/coins/$symbol/order-book/",now()->addMinutes(15));
         $pattern = "/<script type=\'text\\/javascript\' src=\'(.*?)\'.*?><\\/script>/m";
 
         preg_match_all($pattern, $source, $matches);
@@ -131,7 +136,9 @@ class CrawlController extends Controller
 
         preg_match_all($pattern, $source, $matches);
 
-        return json_decode($matches[1][0] . "}", true);
+        $deep = json_decode($matches[1][0] . "}", true);
+
+        return view('info.orderBook', compact('deep', 'symbol', 'id'));
     }
 
     public function historicalData(\Illuminate\Http\Request $request, string $id, string $symbol): array
@@ -278,22 +285,5 @@ class CrawlController extends Controller
 
 
         return $rows;
-    }
-
-    public function coinHistory(\Illuminate\Http\Request $request)
-    {
-        $client = new Client([
-            'timeout' => 5.0,
-            'proxy' => 'socks5://127.0.0.1:1060'
-        ]);
-
-        return $client->easySend(new Request('POST', 'https://api.arzdigital.com/history/'), [
-            "form_params" => array_filter([
-                'action' => 'arzajax2',
-                'gethistory' => $request->input('coin_id'),
-                'range' => $request->input('range'),
-                'dollar' => $request->has('dollar')
-            ]),
-        ])->json;
     }
 }
