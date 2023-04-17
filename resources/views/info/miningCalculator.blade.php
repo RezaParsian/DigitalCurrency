@@ -1,9 +1,5 @@
-@extends('master.index')
+@extends('info.master')
 
-@section('content')
-    <coin-table :page="{{Request()->input('page',1)}}" class="my-5"></coin-table>
-
-    <div class="mb-3">
-        {{$paginator->render('vendor.pagination.tailwind')}}
-    </div>
+@section('body')
+    <mining-calculator :devices='@json($devices)' :coin-info='@json($coinInfo)' :coin='@json($coin)' :dollar-price="{{$fiats->USD->sanaprice}}"></mining-calculator>
 @endsection

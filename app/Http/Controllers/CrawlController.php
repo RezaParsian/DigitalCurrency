@@ -254,16 +254,25 @@ class CrawlController extends Controller
     /**
      * @param string $id
      * @param string $symbol
-     * @return array
+     * @return Application|Factory|View
      */
-    public function miningCalculator(string $id, string $symbol): array
+    public function miningCalculator(string $id, string $symbol)
     {
-        $source = $this->crawl("https://arzdigital.com/coins/$symbol/mining-calculator/");
+        $source = $this->crawl("https://arzdigital.com/coins/$symbol/mining-calculator/", now()->addMinutes(15));
+
+        if ($source === '')
+            Cache::forget("https://arzdigital.com/coins/$symbol/mining-calculator/");
+
         $pattern = "/miningPageData = (.*),\\W*isCoinDedicatePage/ms";
 
         preg_match_all($pattern, $source, $matches);
 
-        return json_decode($matches[1][0], true);
+        $data = json_decode($matches[1][0], true);
+        $devices = $data['devices'];
+        $coin = $data['coins'];
+        $coin = reset($coin);
+
+        return view('info.miningCalculator', compact('coin', 'id', 'symbol', 'devices'));
     }
 
     public function miners(string $id, string $symbol): array

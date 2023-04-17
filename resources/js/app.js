@@ -7,12 +7,14 @@ import WeeklyChart from "./Components/WeeklyChart.vue";
 import AreaChart from "./Components/AreaChart.vue";
 import VueApexCharts from 'vue-apexcharts'
 import DepthChart from "./Components/DepthChart.vue";
+import MiningCalculator from "./Components/MiningCalculator.vue";
 
 Vue.component('apexchart', VueApexCharts)
 Vue.component('CoinTable', CoinTable);
 Vue.component('WeeklyChart', WeeklyChart);
 Vue.component('AreaChart', AreaChart);
 Vue.component('DepthChart', DepthChart);
+Vue.component('MiningCalculator', MiningCalculator);
 
 function currency(number, sign = undefined) {
     return new Intl.NumberFormat('en-US', {maximumSignificantDigits: sign}).format(number);
