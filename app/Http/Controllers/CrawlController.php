@@ -6,6 +6,7 @@ use GuzzleHttp\Psr7\Request;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View as ViewAlias;
@@ -141,7 +142,7 @@ class CrawlController extends Controller
         return view('info.orderBook', compact('deep', 'symbol', 'id'));
     }
 
-    public function historicalData(\Illuminate\Http\Request $request, string $id, string $symbol): array
+    public function historicalData(\Illuminate\Http\Request $request, string $id, string $symbol)
     {
         $source = $this->crawl("https://arzdigital.com/coins/$symbol/historical-data/page-" . $request->input('page', 1) . "/");
         $rows = [];
@@ -168,10 +169,11 @@ class CrawlController extends Controller
             $rows[] = $rowData;
         });
 
-        return [
-            'rows' => $rows,
-            'last_page' => $last_page
-        ];
+        $paginator = new LengthAwarePaginator($rows, $last_page * 50, 50, $request->input('page', 1),[
+            "path"=>route('historical-data',[$id,$symbol])
+        ]);
+
+        return view('info.historicalData', compact('paginator','id','symbol'));
     }
 
     public function chain(string $id, string $symbol): array
