@@ -102,6 +102,8 @@ export default {
         }
     },
     mounted() {
+        window.rp=this;
+
         this.socket = new WebSocket('wss://ws2.arzdigital.com');
 
         this.socket.onopen = this.connected;

@@ -13,10 +13,10 @@
     <div class="grid grid-cols-1 md:grid-cols-4">
         <area-chart :id="{{$id}}" class="col-span-3 order-2 md:order-1"></area-chart>
 
-        <div class="p-2 grid-rows-5 my-auto">
+        <div class="p-2 grid-rows-5 my-auto order-1 md:order-2">
             <div class="border-b-2 pb-3">
                 <div class="flex mb-2" dir="ltr">
-                    <img src="https://cdn.arzdigital.com/uploads/assets/coins/icons/{{$symbol}}.png" width="42px" alt="{{$symbol}}"/>
+                    <img src="{{route('img',['img'=>base64_encode("https://cdn.arzdigital.com/uploads/assets/coins/icons/$symbol.png")])}}" width="42px" alt="{{$symbol}}"/>
                     <h1>
                         {{ucfirst($symbol)}} ({{$coinInfo->symbol}})
                     </h1>

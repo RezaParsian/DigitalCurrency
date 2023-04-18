@@ -208,7 +208,7 @@ class CrawlController extends Controller
             $card = pq($card);
             $charts[] = [
                 'name' => trim($card->find('.arz-coin-details-chart-info__name')->text()),
-                'value' => trim($card->find('.arz-coin-details-chart-info__chart')->attr('data-src')),
+                'value' => route('img',['img'=>(base64_encode(trim($card->find('.arz-coin-details-chart-info__chart')->attr('data-src'))))]),
                 'description' => trim($card->find('.arz-coin-details-chart-info__desc')->text()),
             ];
         });

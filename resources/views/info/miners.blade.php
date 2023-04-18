@@ -18,7 +18,7 @@
             @foreach($rows as $row)
                 <tr>
                     <td>
-                        <img src="https://arzdigital.com/wp-content/themes/arz-theme/templates/arzDigital_mining/otherFiles/minerCompanyIcon/{{strtolower($row->company)}}.png" alt="{{$row->company}}"/>
+                        <img src="{{route('img',['img'=>base64_encode("https://arzdigital.com/wp-content/themes/arz-theme/templates/arzDigital_mining/otherFiles/minerCompanyIcon/".strtolower($row->company).".png")])}}" alt="{{$row->company}}"/>
                     </td>
 
                     <td>

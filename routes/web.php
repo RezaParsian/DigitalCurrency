@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/img', function (Request $request) {
+    return redirect(base64_decode($request->input('img')),301);
+})->name('img');
 
 Route::get('/{page?}', function (Request $request) {
     $paginator = new LengthAwarePaginator([], 9200, 50, $request->input('page'));

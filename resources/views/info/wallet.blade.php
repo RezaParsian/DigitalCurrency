@@ -7,7 +7,7 @@
                 <div class="grid md:flex">
                     <div class="grid h-20 w-20 shrink-0 place-content-center rounded-full border-2 border-indigo-500" aria-hidden="true">
                         <div class="flex items-center gap-1">
-                            <img src="{{$wallet['image']}}" alt="{{$wallet['name']}}" class='rounded-full'/>
+                            <img src="{{route('img',['img'=>base64_encode($wallet['image'])])}}" alt="{{$wallet['name']}}" class='rounded-full'/>
                         </div>
                     </div>
 
