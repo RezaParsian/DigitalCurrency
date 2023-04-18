@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('coin/history', function (Request $request) {
     $client = new Client([
         'timeout' => 5.0,
-        'proxy' => 'socks5://127.0.0.1:1060'
+
     ]);
 
     return $client->easySend(new \GuzzleHttp\Psr7\Request('POST', 'https://api.arzdigital.com/history/'), [

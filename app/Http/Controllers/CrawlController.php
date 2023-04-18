@@ -39,7 +39,7 @@ class CrawlController extends Controller
         return Cache::remember($url, $ttl ?? now()->addDay(), function () use ($url) {
             $client = new Client([
                 'timeout' => 5.0,
-                'proxy' => 'socks5://127.0.0.1:1060'
+
             ]);
             return $client->easySend(new Request('GET', $url))->body;
         });
